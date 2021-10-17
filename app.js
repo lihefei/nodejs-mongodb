@@ -1,10 +1,11 @@
 const mdb = require('mongodb');
 const { MongoClient } = mdb;
 
-const url = 'mongodb://127.0.0.1:27017'; // 数据库连接的地址
-const client = new MongoClient(url); // 实例化MongoClient 传入数据库连接地址
+// const url = 'mongodb://192.168.199.170:27017'; // 数据库连接的地址
+const url = 'mongodb://test:123456@192.168.199.170:27017/test'; // 连接到开启了权限验证的数据库，前面的test:123456表示账号:密码，最后的test表示库名。
 
-const dbName = 'local'; // 操作的数据库名称
+const client = new MongoClient(url); // 实例化MongoClient 传入数据库连接地址
+const dbName = 'test'; // 操作的数据库名称
 
 async function main() {
     // 连接数据库
@@ -14,11 +15,16 @@ async function main() {
     // 切换到要操作的数据库
     const db = client.db(dbName);
 
-    // 操作数据库
-    // const collection1 = db.collection(dbName);
-
     // 创建表
-    // const collection2 = await db.createCollection('user');
+    // await db.createCollection('user', (err, res) => {
+    //     if (err) {
+    //         console.log(err);
+    //         return;
+    //     } else {
+    //         console.log(res);
+    //         client.close();
+    //     }
+    // });
 
     // 删除表
     // await db.dropCollection('user', (err, res) => {
@@ -78,7 +84,7 @@ async function main() {
     // });
 
     // 更新多条数据
-    // const str = { age: 15 };
+    // const str = { age: 18 };
     // const updateStr = { $set: { age: 20 } };
     // db.collection('user').updateMany(str, updateStr, (err, res) => {
     //     if (err) {
